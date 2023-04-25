@@ -8,7 +8,7 @@ function init() {
     var today = new Date();
 
     // Restar 4 días a la fecha actual
-    var minDate = new Date(today.getTime() - (4 * 24 * 60 * 60 * 1000));
+    var minDate = new Date(today.getTime() - (3 * 24 * 60 * 60 * 1000));
 
     // Inicializar el plugin "bootstrap-datepicker" con las opciones deseadas
     $('#txtFecAte').datepicker({
@@ -62,7 +62,87 @@ function init() {
     });
 
     $("#formulario").on("submit", function (e) {
-        guardaryeditar(e);
+        
+        e.preventDefault();
+        if ($(this).valid()) {
+            guardaryeditar(e);
+        }
+    });
+
+    $("#formulario").validate({
+        ignore: [txtObservaciones],
+        errorClass: 'invalid-feedback animated fadeInDown',
+        errorElement: 'div',
+        errorPlacement: function(error, e) {
+            jQuery(e).parents('.form-group').append(error);
+        },
+        highlight: function(e) {
+            jQuery(e).closest('.form-group').removeClass('is-invalid').addClass('is-invalid');
+        },
+        success: function(e) {
+            jQuery(e).closest('.form-group').removeClass('is-invalid');
+            jQuery(e).remove();
+        },
+        rules: {
+            txtDni: {
+                required: true,
+                minlength: 8
+            },
+            txtNombres: {
+                required: true
+            },
+            txtApellidos: {
+                required: true
+            },
+            txtFecAte: {
+                required: true
+            },
+            txtTurno: {
+                required: true
+            },
+            txtNunSol: {
+                required: true
+            },
+            txtArea: {
+                required: true
+            },
+            txtCantExa: {
+                required: true
+            },
+            txtProfesional: {
+                required: true
+            }
+        },
+        messages: {
+            txtDni: {
+                required: "Por favor ingrese el DNI",
+                minlength: 'El dni tiene minimo 8 digitos'
+            },
+            txtNombres: {
+                required: "Por favor ingrese su nombre"
+            },
+            txtApellidos: {
+                required: "Por favor ingrese sus apellidos"
+            },
+            txtFecAte: {
+                required: "Por favor ingrese la fecha de atencion"
+            },
+            txtTurno: {
+                required: "Por favor ingrese el turno"
+            },
+            txtNunSol: {
+                required: "Por favor ingrese el numero de solicitud"
+            },
+            txtArea: {
+                required: "Por favor seleccione el area"
+            },
+            txtCantExa: {
+                required: "Por favor seleccione la cantidad de examenes"
+            },
+            txtProfesional: {
+                required: "Por favor seleccione el profesional"
+            }
+        }
     });
 }
 

@@ -80,14 +80,15 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => '<button type="button" class="btn btn-sm btn-circle btn-outline-warning" onclick="mostrar(' . $result->idatencion . ')"><i class="fa fa-gears"></i></button>
                 <button type="button" class="btn btn-sm btn-circle btn-outline-danger" onclick="eliminar(' . $result->idatencion . ')"><i class="fa fa-trash-o"></i></button>',
-                "1" => $result->profesional,
-                "2" => $result->area,
-                "3" => $result->turno,
-                "4" => $result->n_solicitud,
-                "5" => $result->observaciones,
-                "6" => $result->fecha_atencion,
-                "7" => $result->paciente,
-                "8" => $result->fecha_reg
+                "1" => $result->idatencion,
+                "2" => $result->profesional,
+                "3" => $result->area,
+                "4" => $result->turno,
+                "5" => $result->n_solicitud,
+                "6" => $result->observaciones,
+                "7" => $result->fecha_atencion,
+                "8" => $result->paciente,
+                "9" => $result->fecha_reg
             );
         }
         $results = array(
@@ -106,14 +107,15 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => '<button type="button" class="btn btn-sm btn-circle btn-outline-warning" onclick="mostrar(' . $result->idatencion . ')"><i class="fa fa-gears"></i></button>
                     <button type="button" class="btn btn-sm btn-circle btn-outline-danger" onclick="eliminar(' . $result->idatencion . ')"><i class="fa fa-trash-o"></i></button>',
-                "1" => $result->profesional,
-                "2" => $result->area,
-                "3" => $result->turno,
-                "4" => $result->n_solicitud,
-                "5" => $result->observaciones,
-                "6" => $result->fecha_atencion,
-                "7" => $result->paciente,
-                "8" => $result->fecha_reg
+                "1" => $result->idatencion,
+                "2" => $result->profesional,
+                "3" => $result->area,
+                "4" => $result->turno,
+                "5" => $result->n_solicitud,
+                "6" => $result->observaciones,
+                "7" => $result->fecha_atencion,
+                "8" => $result->paciente,
+                "9" => $result->fecha_reg
             );
         }
         $results = array(

@@ -79,7 +79,7 @@ switch ($_GET["op"]) {
 
     case 'selectProfesional':
         $rspt = $ProfesionalesModel::getSelectProfesional();
-        echo "<option value='seleccione'>Seleccione</option>";
+        echo "<option value=''>Seleccione</option>";
         foreach ($rspt as $result) {
             echo "<option value='$result->idprofesional'>$result->profesional</option>";
         }

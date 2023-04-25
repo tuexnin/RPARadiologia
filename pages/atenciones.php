@@ -55,6 +55,7 @@
                         <thead>
                             <tr>
                                 <th class="" style="width: 12%;">Op</th>
+                                <th class="" style="width: 5%;">N°</th>
                                 <th>Profesional</th>
                                 <th class="">Area</th>
                                 <th class="">Turno</th>
@@ -89,7 +90,7 @@
                     </div>
                 </div>
                 <div class="block-content">
-                    <form method="post" id="formulario" name="formulario">
+                    <form method="post" id="formulario" name="formulario" novalidate>
                         <div class="row justify-content-center">
                             <div class="col-md-3">
                                 <h6>Datos del paciente</h6>
@@ -136,58 +137,70 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="form-material">
-                                    <input type="text" class="js-datepicker form-control" id="txtFecAte" name="txtFecAte" data-provide="datepicker" data-date-format="dd-mm-yyyy" tabindex="4">
-                                    <label for="txtFecAte">Fecha de Atencion Paciente</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <input type="text" class="js-datepicker form-control" id="txtFecAte" name="txtFecAte" data-provide="datepicker" data-date-format="dd-mm-yyyy" tabindex="4">
+                                        <label for="txtFecAte">Fecha de Atencion Paciente</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-material">
-                                    <select class="form-control" id="txtTurno" name="txtTurno" style="width: 100%;" tabindex="5">
-                                        <option value="MAÑANA">MAÑANA</option>
-                                        <option value="TARDE">TARDE</option>
-                                        <option value="NOCHE">NOCHE</option>
-                                    </select>
-                                    <label for="txtTurno">Turno</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <select class="form-control" id="txtTurno" name="txtTurno" style="width: 100%;" tabindex="5">
+                                            <option value="MAÑANA">MAÑANA</option>
+                                            <option value="TARDE">TARDE</option>
+                                            <option value="NOCHE">NOCHE</option>
+                                        </select>
+                                        <label for="txtTurno">Turno</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-material">
-                                    <input type="text" class="form-control" id="txtNunSol" name="txtNunSol">
-                                    <label for="txtNunSol">N. Solicitud</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <input type="text" class="form-control" id="txtNunSol" name="txtNunSol">
+                                        <label for="txtNunSol">N. Solicitud</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-material">
-                                    <select class="form-control" id="txtArea" name="txtArea" style="width: 100%;">
-                                    </select>
-                                    <label for="txtArea">Area</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <select class="form-control" id="txtArea" name="txtArea" style="width: 100%;">
+                                        </select>
+                                        <label for="txtArea">Area</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2 mt-4">
-                                <div class="form-material">
-                                    <select class="form-control" id="txtCantExa" name="txtCantExa" style="width: 100%;">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
-                                    <label for="txtCantExa">Cant. Examenes</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <select class="form-control" id="txtCantExa" name="txtCantExa" style="width: 100%;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <label for="txtCantExa">Cant. Examenes</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mt-4">
+                        <div class="row mt-4">
                             <div class="col-md-6">
-                                <div class="form-material">
-                                    <select class="form-control" id="txtProfesional" name="txtProfesional" style="width: 100%;">
-                                    </select>
-                                    <label for="txtProfesional">Profesional</label>
+                                <div class="form-group">
+                                    <div class="form-material">
+                                        <select class="form-control" id="txtProfesional" name="txtProfesional" style="width: 100%;">
+                                        </select>
+                                        <label for="txtProfesional">Profesional</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -209,7 +222,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <p>Todos los campos deben ser ingresados</p>
+                <p>Todos los campos deben ser ingresados, con excepción de Observaciones</p>
             </div>
         </div>
     </div>

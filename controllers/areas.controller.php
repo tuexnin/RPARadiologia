@@ -47,7 +47,7 @@ switch ($_GET["op"]) {
 
     case 'selectArea':
         $rspt = $AreasModel::getSelectArea();
-        echo "<option value='seleccione'>Seleccione</option>";
+        echo "<option value=''>Seleccione</option>";
         foreach ($rspt as $result) {
             echo "<option value='$result->idarea'>$result->nombre</option>";
         }

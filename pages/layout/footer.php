@@ -31,7 +31,8 @@
 <script src="pages/assets/js/plugins/dt/js/vfsfonts.js"></script>
 <script src="pages/assets/js/plugins/datepiker/bootstrap-datepicker.min.js"></script>
 <script src="pages/assets/js/plugins/select2/select2full.min.js"></script>
-
+<script src="pages/assets/js/plugins/validateForms/jquery.validate.min.js"></script>
+<script src="pages/assets/js/plugins/validateForms/additional-methods.min.js"></script>
 
 <!-- Codebase Core JS -->
 <script src="pages/scripts/menu.js"></script>
