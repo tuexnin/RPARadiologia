@@ -14,6 +14,16 @@ class ProfesionalesModel{
         return Connection::executeQuery($sql);
     }
 
+    static public function getDataRegistro ($idprofesional){
+        $sql = "select ra.fecha_atencion, ra.turno, ra.n_solicitud, concat(p.nombres, ' ', p.apellidos) as pasiente, a.nombre as area, ra.cantidad_ex, ra.observaciones, ra.fecha_reg
+        from reg_atenciones ra 
+        inner join pacientes p ON ra.paciente_id = p.idpaciente 
+        inner join profesionales p2 on ra.profecional_id = p2.idprofesional 
+        inner join areas a on ra.area_id = a.idarea 
+        where ra.profecional_id  = '$idprofesional' order by ra.fecha_atencion asc";
+        return Connection::executeQuery($sql);
+    }
+
     static public function insertar($dni, $nombres, $apellidos, $profesion, $cmp, $fecha_reg){
         $sql = "INSERT INTO profesionales (dni, nombres, apellidos, profesion, cmp, fecha_reg) VALUES (:dni, :nombres, :apellidos, :profesion, :cmp, :fecha_reg)";
         $link = Connection::connect();

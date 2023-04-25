@@ -3,12 +3,12 @@
 require_once "../models/pacientes.model.php";
 
 $PacientesModel = new PacientesModel();
-
+date_default_timezone_set('America/Lima');
 $idpaciente = isset($_POST['txtIdpaciente']) ? $_POST['txtIdpaciente'] : "";
 $dni = isset($_POST['txtDni']) ? $_POST['txtDni'] : "";
 $nombres = isset($_POST['txtNombres']) ? $_POST['txtNombres'] : "";
 $apellidos = isset($_POST['txtApellidos']) ? $_POST['txtApellidos'] : "";
-$fecha_reg = date('Y-m-d');
+$fecha_reg = date('Y-m-d H:i:s');
 
 
 switch ($_GET["op"]) {
@@ -42,8 +42,9 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => '<button type="button" class="btn btn-sm btn-circle btn-outline-danger" onclick="mostrar(' . $result->idpaciente . ')"><i class="fa fa-gears"></i></button>
                 <button type="button" class="btn btn-sm btn-circle btn-outline-primary" onclick="verRegistro(' . $result->idpaciente . ')"><i class="fa fa-eye"></i></button>',
-                "1" => $result->nombres . " " . $result->apellidos,
-                "2" => $result->dni
+                "1" => $result->idpaciente,
+                "2" => $result->nombres . " " . $result->apellidos,
+                "3" => $result->dni
             );
         }
         $results = array(

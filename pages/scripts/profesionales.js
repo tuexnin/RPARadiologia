@@ -1,4 +1,5 @@
 var tabla;
+var tabla2;
 
 function init() {
     listar();
@@ -235,6 +236,65 @@ function desactivar(idprofesional) {
             );
         }
     })
+}
+
+function verRegistro(idprofesional) {
+    $("#modalRegAt").modal("show");
+    $.post(
+        "controllers/profesionales.controller.php?op=mostrar",
+        { txtIdprofesional: idprofesional },
+        function (data) {
+            data = JSON.parse(data);
+            $("#tituloModal2").text(data[0]["nombres"] + " " + data[0]["apellidos"]);
+        }
+    );
+    tabla2 = $("#tbllistadoRegistros")
+        .dataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ],
+            aProcessing: true, //Activamos el procesamiento del datatables
+            aServerSide: true, //Paginación y filtrado realizados por el servidor
+            language: {
+                lengthMenu: "Mostrar _MENU_ Registros",
+                zeroRecords: "Ningún registro encontrado",
+                info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+                infoEmpty: "Ningún registro encontrado",
+                infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                search: "Buscar:",
+                loadingRecords: "Cargando...",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+            },
+            columnDefs: [
+                { className: "centered", targets: [0] },
+                { orderable: false, targets: [0] },
+                { searchable: false, targets: [0] },
+                //{ width: "30%", targets: [0] }
+            ],
+            responsive: true,
+            ajax: {
+                url: "controllers/profesionales.controller.php?op=verRegistro",
+                type: "post",
+                dataType: "json",
+                data: {
+                    txtIdprofesional: idprofesional
+                },
+                error: function (e) {
+                    console.log(e.responseText);
+                },
+            },
+            bDestroy: true,
+            iDisplayLength: 5, //Paginación
+            order: [[0, "asc"]], //Ordenar (columna,orden)
+        })
+        .DataTable();
+
 }
 
 init();

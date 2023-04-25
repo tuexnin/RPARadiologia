@@ -3,7 +3,7 @@
 require_once "../models/usuarios.model.php";
 
 $UsuariosModel = new UsuariosModel();
-
+date_default_timezone_set('America/Lima');
 $idusuario = isset($_POST['txtIdusuario']) ? $_POST['txtIdusuario'] : "";
 $nombres = isset($_POST['txtNombres']) ? $_POST['txtNombres'] : "";
 $apellidos = isset($_POST['txtApellidos']) ? $_POST['txtApellidos'] : "";
@@ -12,7 +12,7 @@ $email = isset($_POST['txtEmail']) ? $_POST['txtEmail'] : "";
 $usuario = isset($_POST['txtUsuario']) ? $_POST['txtUsuario'] : "";
 $clave = isset($_POST['txtPassword']) ? $_POST['txtPassword'] : "";
 $celular = isset($_POST['txtCelular']) ? $_POST['txtCelular'] : "";
-$fecha_reg = date('Y-m-d');
+$fecha_reg = date('Y-m-d H:i:s');
 $contraseña = isset($_POST['txtContraseña']) ? $_POST['txtContraseña'] : "";
 
 

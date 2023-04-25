@@ -10,6 +10,7 @@
                         <thead>
                             <tr>
                                 <th class="" style="width: 15%;">Op</th>
+                                <th class="" style="width: 10%;">ID</th>
                                 <th>Paciente</th>
                                 <th class="" style="width: 15%;">DNI</th>
                             </tr>

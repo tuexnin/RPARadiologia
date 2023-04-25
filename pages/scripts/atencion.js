@@ -5,14 +5,29 @@ function init() {
 
     validarDni();
 
-    $("#txtDni").on("input", function () {
-        var valor = $(this).val();
-        var regex = /^[0-9]{0,8}$/;
-        if (!regex.test(valor)) {
-            valor = valor.replace(/[^0-9]/g, "").substring(0, 8);
-            $(this).val(valor);
-        }
+    var today = new Date();
+
+    // Restar 4 días a la fecha actual
+    var minDate = new Date(today.getTime() - (4 * 24 * 60 * 60 * 1000));
+
+    // Inicializar el plugin "bootstrap-datepicker" con las opciones deseadas
+    $('#txtFecAte').datepicker({
+        startDate: minDate,
+        autoclose: true
     });
+
+    $('#txtFecDesde').datepicker({
+        endDate: today,
+        autoclose: true
+    });
+
+    $('#txtFecAsta').datepicker({
+        endDate: today,
+        autoclose: true
+    });
+
+    validarNumeros("#txtDni",8);
+    validarNumeros("#txtNunSol",6);
 
     validarEntradaTexto("#txtNombres", 150);
     validarEntradaTexto("#txtApellidos", 150);
@@ -36,7 +51,10 @@ function init() {
         dropdownParent: $("#modalAtencion")
     });
 
-    selectProfesional();
+    $("#proF").select2();
+
+    selectProfesional("#txtProfesional");
+    selectProfesional("#proF");
     selectArea();
 
     $("#btnCancelar").click(function () {
@@ -48,7 +66,18 @@ function init() {
     });
 }
 
-function validarEntradaTexto(campo, cant){
+function validarNumeros(campo, cant){
+    $(campo).on("input", function () {
+        var valor = $(this).val();
+        var regex = /^[0-9]{0,cant}$/;
+        if (!regex.test(valor)) {
+            valor = valor.replace(/[^0-9]/g, "").substring(0, cant);
+            $(this).val(valor);
+        }
+    });
+}
+
+function validarEntradaTexto(campo, cant) {
     $(campo).on("input", function () {
         var valor = $(this).val().toUpperCase();
         $(this).val(valor);
@@ -56,9 +85,9 @@ function validarEntradaTexto(campo, cant){
         var valor = $(this).val().toUpperCase();
         $(this).val(valor);
         if (e.type === "keydown") {
-            if (e.key.match(/^[a-z]$/i) && $(this).val().length >= cant && e.keyCode !== 8 && e.keyCode !== 32) {
+            if (e.key.match(/^[a-z]$/i) && $(this).val().length >= cant && e.keyCode !== 8 && e.keyCode !== 32 && e.keyCode !== 9) {
                 e.preventDefault();
-            } else if (!e.key.match(/^[a-z]$/i) && e.keyCode !== 8 && e.keyCode !== 32) {
+            } else if (!e.key.match(/^[a-z]$/i) && e.keyCode !== 8 && e.keyCode !== 32 && e.keyCode !== 9) {
                 e.preventDefault();
             }
         } else if (e.type === "keyup") {
@@ -105,11 +134,11 @@ function validarDni() {
 
 }
 
-function selectProfesional() {
+function selectProfesional(campo) {
     $.post(
         "controllers/profesionales.controller.php?op=selectProfesional",
         function (data) {
-            $("#txtProfesional").html(data);
+            $(campo).html(data);
         }
     );
 }
@@ -274,6 +303,64 @@ function eliminar(idatencion) {
         }
     })
 
+}
+
+function filtrar() {
+    tabla = $("#tbllistadoAtenciones")
+        .dataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ],
+            aProcessing: true, //Activamos el procesamiento del datatables
+            aServerSide: true, //Paginación y filtrado realizados por el servidor
+            language: {
+                lengthMenu: "Mostrar _MENU_ Registros",
+                zeroRecords: "Ningún registro encontrado",
+                info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+                infoEmpty: "Ningún registro encontrado",
+                infoFiltered: "(filtrados desde _MAX_ registros totales)",
+                search: "Buscar:",
+                loadingRecords: "Cargando...",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+            },
+            columnDefs: [
+                { className: "centered", targets: [0] },
+                { orderable: false, targets: [0] },
+                { searchable: false, targets: [0] },
+                //{ width: "30%", targets: [0] }
+            ],
+            responsive: true,
+            ajax: {
+                url: "controllers/atencion.controller.php?op=filtrar",
+                type: "post",
+                dataType: "json",
+                data: {
+                    idprof: $("#proF").val(),
+                    desde: $("#txtFecDesde").val(),
+                    hasta: $("#txtFecAsta").val()
+                },
+                error: function (e) {
+                    console.log(e.responseText);
+                },
+            },
+            bDestroy: true,
+            iDisplayLength: 5, //Paginación
+            order: [[0, "desc"]], //Ordenar (columna,orden)
+        })
+        .DataTable();
+}
+
+function limpiarFiltro(){
+    selectProfesional("#proF");
+    $("#txtFecDesde").val("");
+    $("#txtFecAsta").val("");
+    listar();
 }
 
 init();

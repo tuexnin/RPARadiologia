@@ -107,4 +107,47 @@
 </div>
 <!-- END From Left Modal -->
 
+<!-- From Left Modal -->
+<div class="modal fade" id="modalRegAt" tabindex="-1" role="dialog" aria-labelledby="modal-fromleft" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-fromleft" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title" id="tituloModal2"></h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <div class="mt-4">
+                        <table id="tbllistadoRegistros" class="table table-bordered table-striped table-vcenter js-dataTable-full" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="" >Pasiente</th>
+                                    <th class="" style="width: 13%;">Fecha A.</th>
+                                    <th>Turno</th>
+                                    <th class="" style="width: 10%;"># S</th>
+                                    <th class="" >Area</th>
+                                    <th class="" >C. Ex</th>
+                                    <th class="" >Observaciones</th>
+                                    <th class="" style="width: 13%;">Fecha R.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Muestra todos los registros de atenciones echas por un Profesional</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END From Left Modal -->
+
 <script src="pages/scripts/profesionales.js"></script>

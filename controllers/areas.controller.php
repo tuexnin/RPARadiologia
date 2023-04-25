@@ -3,10 +3,10 @@
 require_once "../models/areas.model.php";
 
 $AreasModel = new AreasModel();
-
+date_default_timezone_set('America/Lima');
 $idarea = isset($_POST['txtIdarea']) ? $_POST['txtIdarea'] : "";
 $nombre = isset($_POST['txtNombre']) ? $_POST['txtNombre'] : "";
-$fecha_reg = date('Y-m-d');
+$fecha_reg = date('Y-m-d H:i:s');
 
 
 switch ($_GET["op"]) {

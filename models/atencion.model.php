@@ -5,11 +5,22 @@ require_once "connection.php";
 class AtencionModel{
     
     static public function getData (){
-        $sql = "select ra.idatencion, concat(p.nombres, ' ', p.apellidos) as profesional, a.nombre as area, ra.turno, ra.n_solicitud, ra.observaciones, ra.fecha_atencion, concat(p2.nombres, ' ', p2.apellidos) as paciente 
+        $sql = "select ra.idatencion, concat(p.nombres, ' ', p.apellidos) as profesional, a.nombre as area, ra.turno, ra.n_solicitud, ra.observaciones, ra.fecha_atencion, concat(p2.nombres, ' ', p2.apellidos) as paciente, ra.fecha_reg
         from reg_atenciones ra 
         inner join profesionales p on ra.profecional_id = p.idprofesional 
         inner join areas a on ra.area_id = a.idarea 
-        inner join pacientes p2 on ra.paciente_id = p2.idpaciente";
+        inner join pacientes p2 on ra.paciente_id = p2.idpaciente order by ra.idatencion desc";
+        return Connection::executeQuery($sql);
+    }
+
+    static public function getDataFilter ($idprofesiona, $desde, $hasta){
+        $sql = "select ra.idatencion, concat(p.nombres, ' ', p.apellidos) as profesional, a.nombre as area, ra.turno, ra.n_solicitud, ra.observaciones, ra.fecha_atencion, concat(p2.nombres, ' ', p2.apellidos) as paciente, ra.fecha_reg
+        from reg_atenciones ra 
+        inner join profesionales p on ra.profecional_id = p.idprofesional 
+        inner join areas a on ra.area_id = a.idarea 
+        inner join pacientes p2 on ra.paciente_id = p2.idpaciente
+        where ra.profecional_id = '$idprofesiona' and (ra.fecha_atencion between '$desde' and '$hasta') 
+        order by ra.idatencion desc";
         return Connection::executeQuery($sql);
     }
 
