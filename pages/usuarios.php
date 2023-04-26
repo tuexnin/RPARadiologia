@@ -17,7 +17,9 @@
                                 <th class="" style="width: 10%;">Opciones</th>
                                 <th>Usuario</th>
                                 <th class="d-none d-sm-table-cell" style="width: 15%;">DNI</th>
+                                <th class="d-none d-sm-table-cell" style="width: 15%;">Foto</th>
                                 <th class="text-center" style="width: 15%;">user</th>
+                                <th class="text-center" style="width: 15%;">rol</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,6 +102,28 @@
                                 <div class="form-material">
                                     <input type="password" class="form-control" id="txtPassword" name="txtPassword" placeholder="********">
                                     <label for="txtPassword">Contraseña</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-9">
+                                <div class="form-material">
+                                    <input type="file" class="form-control" name="txtImagen" id="txtImagen">
+                                    <input type="hidden" name="imagenactual" id="imagenactual">
+                                    <img src="" width="150px" height="120px" id="imagenmuestra">
+                                    <label for="txtImagen">Imagen</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <div class="col-md-9">
+                                <div class="form-material">
+                                    <select class="form-control" id="txtRol" name="txtRol" style="width: 100%;" tabindex="5">
+                                        <option value="">SELECCIONE</option>
+                                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                        <option value="COLABORADOR">COLABORADOR</option>
+                                    </select>
+                                    <label for="txtRol">Rol</label>
                                 </div>
                             </div>
                         </div>

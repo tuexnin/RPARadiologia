@@ -9,8 +9,8 @@ class UsuariosModel{
         return Connection::executeQuery($sql);
     }
 
-    static public function insertar($dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $fecha_reg){
-        $sql = "INSERT INTO usuarios (dni, nombres, apellidos, celular, correo, usuario, password, fecha_reg) VALUES (:dni, :nombres, :apellidos, :celular, :correo, :usuario, :password, :fecha_reg)";
+    static public function insertar($dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $fecha_reg, $imagen, $rol){
+        $sql = "INSERT INTO usuarios (dni, nombres, apellidos, celular, correo, usuario, password, fecha_reg, foto, rol) VALUES (:dni, :nombres, :apellidos, :celular, :correo, :usuario, :password, :fecha_reg, :foto, :rol)";
         $link = Connection::connect();
         $stmt = $link->prepare($sql);
         $stmt->bindParam('dni', $dni, PDO::PARAM_STR);
@@ -21,11 +21,13 @@ class UsuariosModel{
         $stmt->bindParam('usuario', $usuario, PDO::PARAM_STR);
         $stmt->bindParam('password', $password, PDO::PARAM_STR);
         $stmt->bindParam('fecha_reg', $fecha_reg, PDO::PARAM_STR);
+        $stmt->bindParam('foto', $imagen, PDO::PARAM_STR);
+        $stmt->bindParam('rol', $rol, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
-    static public function editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $password){
-        $sql = "UPDATE usuarios SET dni = :dni, nombres = :nombres, apellidos = :apellidos, celular = :celular, correo = :correo, usuario = :usuario, password = :password WHERE idusuario = :idusuario";
+    static public function editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $imagen, $rol){
+        $sql = "UPDATE usuarios SET dni = :dni, nombres = :nombres, apellidos = :apellidos, celular = :celular, correo = :correo, usuario = :usuario, password = :password, foto = :foto, rol = :rol WHERE idusuario = :idusuario";
         $link = Connection::connect();
         $stmt = $link->prepare($sql);
         $stmt->bindParam('idusuario', $idusuario, PDO::PARAM_STR);
@@ -36,6 +38,8 @@ class UsuariosModel{
         $stmt->bindParam('correo', $email, PDO::PARAM_STR);
         $stmt->bindParam('usuario', $usuario, PDO::PARAM_STR);
         $stmt->bindParam('password', $password, PDO::PARAM_STR);
+        $stmt->bindParam('foto', $imagen, PDO::PARAM_STR);
+        $stmt->bindParam('rol', $rol, PDO::PARAM_STR);
         return $stmt->execute();
     }
 

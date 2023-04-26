@@ -45,8 +45,12 @@
                                 <i class="si si-fire"></i>
                                 <span class="font-size-xl text-primary-dark">RPA</span><span class="font-size-xl">Radiologia</span>
                             </a>
-                            <h1 class="h2 font-w700 mt-50 mb-10">Bienvenidos al panel de administracion</h1>
-                            <h2 class="h4 font-w400 text-muted mb-0">Por favor ingrese</h2>
+                            <div class="col mt-10">
+                            <img src="files/img/logoEsSalud.png" class="" alt="logo EsSalud" width="150px">
+                            </div>
+                            
+                            <h1 class="h2 font-w400 mt-10 mb-10">Bienvenidos al panel de administracion</h1>
+                            <h2 class="h4 font-w300 text-muted mb-0">Por favor ingrese</h2>
                         </div>
                         <!-- END Header -->
 

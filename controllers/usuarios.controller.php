@@ -14,19 +14,34 @@ $clave = isset($_POST['txtPassword']) ? $_POST['txtPassword'] : "";
 $celular = isset($_POST['txtCelular']) ? $_POST['txtCelular'] : "";
 $fecha_reg = date('Y-m-d H:i:s');
 $contraseña = isset($_POST['txtContraseña']) ? $_POST['txtContraseña'] : "";
+$imagen = isset($_POST['txtImagen']) ? $_POST['txtImagen'] : "";
+$rol = isset($_POST['txtRol']) ? $_POST['txtRol'] : "";
+
 
 
 switch ($_GET["op"]) {
     case 'guardaryeditar':
+        if (!file_exists($_FILES['txtImagen']['tmp_name']) || !is_uploaded_file($_FILES['txtImagen']['tmp_name'])) {
+            $imagen = $_POST["imagenactual"];
+        } else {
+            $ext = explode(".", $_FILES["txtImagen"]["name"]);
+            if ($_FILES['txtImagen']['type'] == "image/jpg" || $_FILES['txtImagen']['type'] == "image/jpeg" || $_FILES['txtImagen']['type'] == "image/png") {
+                $imagen = round(microtime(true)) . '.' . end($ext);
+                move_uploaded_file($_FILES["txtImagen"]["tmp_name"], "../files/fotos/" . $imagen);
+                if(!empty($_POST["imagenactual"])){
+                    unlink('../files/fotos/' . $_POST["imagenactual"]);
+                }
+            }
+        }
         $password = hash('md5', $clave);
         if (empty($idusuario)) {
-            $rspta = $UsuariosModel::insertar($dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $fecha_reg);
+            $rspta = $UsuariosModel::insertar($dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $fecha_reg, $imagen, $rol);
             echo $rspta ? "Usuario registrado" : "Usuario no se pudo registrar";
         } else {
             if (!empty($clave)) {
-                $rspta = $UsuariosModel::editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $password);
+                $rspta = $UsuariosModel::editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $password, $imagen, $rol);
             } else {
-                $rspta = $UsuariosModel::editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $contraseña);
+                $rspta = $UsuariosModel::editar($idusuario, $dni, $nombres, $apellidos, $celular, $email, $usuario, $contraseña, $imagen, $rol);
             }
             echo $rspta ? "Usuario actualizada" : "Usuario no se pudo actualizar";
         }
@@ -39,6 +54,12 @@ switch ($_GET["op"]) {
         break;
 
     case 'eliminar':
+        $rspta = $UsuariosModel::mostrar($idusuario);
+        foreach ($rspta as $result) {
+            if(!empty($result->foto)){
+                unlink('../files/fotos/' . $result->foto);
+            }
+        }
         $rspta = $UsuariosModel::eliminar($idusuario);
         //Codificar el resultado utilizando json
         echo json_encode($rspta);
@@ -53,7 +74,9 @@ switch ($_GET["op"]) {
                 <button type="button" class="btn btn-sm btn-circle btn-outline-danger" onclick="eliminar(' . $result->idusuario . ')"><i class="fa fa-trash-o"></i></button>',
                 "1" => $result->nombres . " " . $result->apellidos,
                 "2" => $result->dni,
-                "3" => $result->usuario
+                "3" => empty($result->foto) ? "<img src='pages/assets/img/avatars/avatar15.jpg' height='50px' width='50px' >" : "<img src='files/fotos/".$result->foto."' height='50px' width='50px' >",
+                "4" => $result->usuario,
+                "5" => $result->rol
             );
         }
         $results = array(

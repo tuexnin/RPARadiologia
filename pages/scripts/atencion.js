@@ -13,6 +13,7 @@ function init() {
     // Inicializar el plugin "bootstrap-datepicker" con las opciones deseadas
     $('#txtFecAte').datepicker({
         startDate: minDate,
+        endDate: today,
         autoclose: true
     });
 

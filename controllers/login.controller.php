@@ -17,7 +17,9 @@ switch ($_GET["op"]) {
                             "1" => $result->nombres . " " . $result->apellidos,
                             "2" => $result->usuario,
                             "3" => $result->dni,
-                            "4" => $result->celular
+                            "4" => $result->celular,
+                            "5" => $result->foto,
+                            "6" => $result->rol
                         );
                     }else{
                         $datos[] = array(
@@ -38,6 +40,8 @@ switch ($_GET["op"]) {
         $_SESSION['usuario'] = $_POST['usuario'];
         $_SESSION['nombres'] = $_POST['nombres'];
         $_SESSION['dni'] = $_POST['dni'];
+        $_SESSION['foto'] = $_POST['foto'];
+        $_SESSION['rol'] = $_POST['rol'];
         break;
 
     case 'cerrar':

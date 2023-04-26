@@ -3,41 +3,48 @@ var tabla;
 function init() {
     listar();
 
-    $("#btnCancelar").click(function () { 
+    $("#imagenmuestra").hide();
+
+    $("#btnCancelar").click(function () {
         limpiar();
     });
 
     $("#formulario").on("submit", function (e) {
         e.preventDefault();
-        if($("#txtDni").val().length < 8 || $("#txtDni").val().length > 8){
+        if ($("#txtDni").val().length < 8 || $("#txtDni").val().length > 8) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error: El dni debe tener 8 caracteres'
             })
-        }else if($("#txtNombres").val().length <= 0){
+        } else if ($("#txtNombres").val().length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error: Ingrese sus nombres'
             })
-        }else if($("#txtApellidos").val().length <= 0){
+        } else if ($("#txtApellidos").val().length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error: Ingrese sus apellidos'
             })
-        }else if($("#txtUsuario").val().length <= 0){
+        } else if ($("#txtUsuario").val().length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error: Ingrese su nombre de usuario'
             })
-        }else if($("#txtPassword").val().length <= 0){
+        } else if ($("#txtPassword").val().length <= 0 && $("#txtContraseña").val().length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error: Ingrese su contraseña'
             })
-        }else{
+        } else if ($("#txtRol").val().length <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error: Seleccione un rol'
+            })
+        } else {
             guardaryeditar(e);
         }
-        
+
     });
 }
 
@@ -64,8 +71,8 @@ function listar() {
             },
             columnDefs: [
                 { className: "centered", targets: [0] },
-                { orderable: false, targets: [0,3] },
-                { searchable: false, targets: [0,3] },
+                { orderable: false, targets: [0, 3] },
+                { searchable: false, targets: [0, 3] },
                 //{ width: "30%", targets: [0] }
             ],
             responsive: true,
@@ -103,6 +110,10 @@ function mostrar(idusuario) {
             $("#txtEmail").val(data[0]["correo"]);
             $("#txtUsuario").val(data[0]["usuario"]);
             $("#txtPassword").val("");
+            $("#imagenmuestra").attr("src", data[0]["foto"] == null || data[0]["foto"] == "" ? "" : "files/fotos/" + data[0]["foto"]);
+            $("#imagenactual").val(data[0]["foto"]);
+            $("#txtRol").val(data[0]["rol"]);
+            data[0]["foto"] == null || data[0]["foto"] == "" ? $("#imagenmuestra").hide() : $("#imagenmuestra").show();
         }
     );
 }
@@ -118,6 +129,11 @@ function limpiar() {
     $("#txtPassword").val("");
     $("#txtContraseña").val("");
     $("#tituloModal").text("Agregar Usuario");
+    $("#imagenmuestra").attr("src", "");
+    $("#imagenactual").val("");
+    $("#txtRol").val("SELECCIONE");
+    $("#txtImagen").val("");
+    $("#imagenmuestra").hide();
 }
 
 function guardaryeditar(e) {
@@ -172,7 +188,7 @@ function eliminar(idusuario) {
             );
         }
     })
-    
+
 }
 
 init();

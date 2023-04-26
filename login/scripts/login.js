@@ -70,7 +70,9 @@ function ingresar(e)
                             idusuario : data[0][0],
                             nombres : data[0][1],
                             usuario : data[0][2],
-                            idrol : data[0][4]
+                            idrol : data[0][4],
+                            foto : data[0][5],
+                            rol : data[0][6]
                         }
                     }).done(function(respt){
                         Swal.fire({
